@@ -3,13 +3,18 @@
 
     async function record() {
         try {
-            const response = await fetch('http://localhost:8000/start_record',{
-                method: "POST",
-                body: JSON.stringify({ name: document.getElementById("experiment_name")?.value })
-            });
-            status = await response.json();
-            console.log(status)
-            alert(status)
+            if (document.getElementById("experiment_name")?.value !== "") {
+                const response = await fetch('http://localhost:8000/start_record',{
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: document.getElementById("experiment_name")?.value })
+                });
+                status = await response.json();
+                console.log(status)
+            }
+            else {
+                alert("Please Provide an Experiment Name")
+            }
         } catch (err) {
             console.error('Failed to fetch status:', err);
         }
@@ -18,12 +23,19 @@
        
     async function stop_record() {
         try {
-            const response = await fetch('http://localhost:8000/stop_record',{
-                method: "POST",
-                body: JSON.stringify({ name: document.getElementById("experiment_name")?.value })
-            });
-            status = await response.json();
-            alert(status)
+            if (document.getElementById("experiment_name")?.value !== "") {
+                const response = await fetch('http://localhost:8000/stop_record',{
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: document.getElementById("experiment_name")?.value })
+                });
+                status = await response.json();
+                console.log(status)
+            }
+            else {
+                alert("Please Provide an Experiment Name")
+            }
+
         } catch (err) {
             console.error('Failed to fetch status:', err);
         }
