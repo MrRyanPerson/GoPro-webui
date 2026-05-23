@@ -2,15 +2,15 @@
     async function clearGopros() {
         try {
             if (confirm("Would you like to clear all saved media on all GoPros?")) {
-                await fetch('http://localhost:8000/preview');
+                await fetch('http://localhost:8000/controls/clear_gopros');
             }
         } catch (err) {
             console.error('Failed to fetch status:', err);
         }
     }
-        async function setKeepAlive() {
+    async function setKeepAlive() {
         try {
-            await fetch('http://localhost:8000/set_keep_alive');
+            await fetch('http://localhost:8000/controls/set_keep_alive');
         } catch (err) {
             console.error('Failed to fetch status:', err);
         }
@@ -24,7 +24,7 @@
         <button class="btn btn-block" onclick={clearGopros}>
             Clear GoPro
         </button>
-        <button class="btn btn-block btn-disabled" onclick={setKeepAlive}>
+        <button class="btn btn-block" onclick={setKeepAlive}>
             Keep Alive
         </button>
     </div>

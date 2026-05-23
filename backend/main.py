@@ -14,7 +14,8 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "http://localhost",
+    "http://localhost:4173",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 class Experiment(BaseModel):
     name: str
 

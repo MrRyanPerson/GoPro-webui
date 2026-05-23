@@ -16,7 +16,6 @@ winget install -e --id OpenJS.NodeJS
 node -v
 npm -v
 ```
-### Backend
 Enter the backend Directory
 ```bash
 cd ./backend
@@ -31,17 +30,26 @@ Install the dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-Run the app.
-```
-python main.py
-```
-### Front End
-In a new terminal CD to the root directory of the project and then run
+Enter project root directory and install dependencies
 ```bash
-# Build Project
-npm run build
+npm ci
 
-PORT=80 node build
+npm run build
+```
+### Running
+Program Commands
+```bash
+# Start the program. Program will be available at http://localhost:3000
+npm run start
+
+# Stop the program
+npm run stop
+
+# Delete all proccesses
+npm run delete
+
+# View logs
+npm run monit
 ```
 ## Development
 ### 5/20/2026
