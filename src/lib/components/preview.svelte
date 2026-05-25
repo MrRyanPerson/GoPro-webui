@@ -2,6 +2,7 @@
     let previews = $state([])
 
     async function loadPreview() {
+        previews = []
         try {
             const response = await fetch('http://localhost:8000/preview');
             previews = (await response.json())["previews"];
@@ -21,16 +22,26 @@
     <dialog id="preview_modal" class="modal">
         <div class="modal-box max-w-7xl w-11/12">
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-3">
-                {#each previews as preview (preview)}
-                    <video
-                        class="w-full rounded-lg aspect-video bg-black"
-                        src={preview}
-                        controls
-                        autoplay
-                        muted
-                        playsinline
-                    ></video>
-                {/each}
+                {#if previews.length > 0}
+                    {#each previews as preview (preview)}
+                        <video
+                            class="w-full rounded-lg aspect-video bg-black"
+                            src={preview}
+                            controls
+                            autoplay
+                            muted
+                            playsinline
+                        ></video>
+                    {/each}
+                {:else}
+                    {#each [1,2,3]}
+                    <div>
+                        <div class="skeleton h-48 w-full flex items-center justify-center">
+                            <span class="skeleton skeleton-text">Loading...</span>
+                        </div>
+                    </div>
+                    {/each}
+                {/if}
             </div>
 
             <div class="modal-action">

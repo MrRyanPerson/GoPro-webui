@@ -39,6 +39,7 @@ npm run build
 ### Running
 Program Commands
 ```bash
+# Needs to 
 # Start the program. Program will be available at http://localhost:3000
 npm run start
 
