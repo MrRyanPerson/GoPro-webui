@@ -63,7 +63,6 @@ async def stop_record(filename):
             "saved_file": filename
         }
     except Exception as e:
-        print("Error: " + e)
         return {
             "status": 500,
             "saved_file": filename
