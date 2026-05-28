@@ -2,8 +2,23 @@ from datetime import datetime
 from .connect import *
 from .conf import *
 from open_gopro.models import constants
+import asyncio
+import httpx
 
 conf = get_conf()
+
+async def send_start_video(gopro):
+    ip_address = gopro.ip_address
+    mode = "start"
+    with httpx.AsyncClient() as client:
+        await client.get(f"http://{ip_address}gopro/camera/shutter/{mode}")
+
+async def send_stop_video(gopro):
+    ip_address = gopro.ip_address
+    mode = "stop"
+    with httpx.AsyncClient() as client:
+        await client.get(f"http://{ip_address}gopro/camera/shutter/{mode}")
+
 
 def get_file_prefix():
     # Get current timestamp to use for prefix of filename
@@ -21,7 +36,7 @@ async def record(filename):
         gopros = [front_gopro, top_gopro, short_gopro]
 
         for gopro in gopros:
-            await gopro.http_command.set_shutter(shutter=constants.Toggle.ENABLE)
+            await send_start_video(gopro)
 
         return {
             "status": 200,
@@ -50,10 +65,12 @@ async def stop_record(filename):
             gopro = camera[0]
             view = camera[1]
             
-            await gopro.http_command.set_shutter(shutter=constants.Toggle.DISABLE)
-            
+            await send_stop_video(gopro)
+
+            await asyncio.sleep(0.3)    
+
             video = await gopro.http_command.get_last_captured_media()
-            new_file_path = os.path.join(conf["LOCAL_FOLDER"], get_file_prefix() + '_{' + filename + '}_' + view + '.MP4')
+            new_file_path = os.path.join(conf["LOCAL_FOLDER"], f"{get_file_prefix()}_{ {filename} }_{view}.MP4")
             
             video_path = video.data.folder + '/' + video.data.file
             print(new_file_path)
