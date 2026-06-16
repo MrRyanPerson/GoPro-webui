@@ -1,9 +1,16 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
     let status = $state()
+    let camera_side = $state("A")
 
     async function record() {
         try {
             if (document.getElementById("experiment_name")?.value !== "") {
+                
+                localStorage.setItem("camera_side", document.getElementById("camera_select")?.value)
+                camera_side = document.getElementById("camera_select")?.value
+
                 const response = await fetch('http://localhost:8000/start_record',{
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -27,6 +34,10 @@
     async function stop_record() {
         try {
             if (document.getElementById("experiment_name")?.value !== "") {
+
+                localStorage.setItem("camera_side", document.getElementById("camera_select")?.value)
+                camera_side = document.getElementById("camera_select")?.value
+
                 const response = await fetch('http://localhost:8000/stop_record',{
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -48,7 +59,12 @@
 
     }
 
-
+	onMount(() => {
+        if (localStorage.getItem("camera_side") === null) {
+            localStorage.setItem("camera_side", "A")
+        }
+        camera_side = localStorage.getItem("camera_side") ?? "A"
+	});
 </script>
 
 <div class="p-4 rounded-box shadow-sm bg-base-200">
@@ -63,8 +79,13 @@
         <label class="select">
             <span class="label">Short Camera Side</span>
             <select id="camera_select">
-                <option value="A">A</option>
-                <option value="B">B</option>
+                {#if camera_side == "A"}
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                {:else}
+                    <option value="B">B</option>
+                    <option value="A">A</option>
+                {/if}
             </select>
         </label>
     </div>
