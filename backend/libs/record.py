@@ -10,13 +10,13 @@ conf = get_conf()
 async def send_start_video(gopro):
     ip_address = gopro.ip_address
     mode = "start"
-    with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient() as client:
         await client.get(f"http://{ip_address}gopro/camera/shutter/{mode}")
 
 async def send_stop_video(gopro):
     ip_address = gopro.ip_address
     mode = "stop"
-    with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient() as client:
         await client.get(f"http://{ip_address}gopro/camera/shutter/{mode}")
 
 
