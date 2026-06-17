@@ -9,8 +9,8 @@
 		"restart": "pm2 restart all",
 		"delete": "pm2 delete all",
 		"monit": "pm2 monit",
-		"frontend": "pm2 start build",
-		"backend": "pm2 start backend/main.py",
+		"frontend": "pm2 start build --name frontend --log logs/frontend.log",
+		"backend": "pm2 start backend/main.py --name backend --log logs/backend.log",
 
 		"dev": "pm2 start backend/main.py --watch && vite dev",
 		"build": "vite build",
