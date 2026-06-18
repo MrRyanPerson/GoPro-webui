@@ -27,7 +27,7 @@
                         <video
                             class="w-full rounded-lg aspect-video bg-black"
                             src={preview}
-                            controls
+                            loop
                             autoplay
                             muted
                             playsinline
