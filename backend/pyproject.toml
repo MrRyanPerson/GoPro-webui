@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.136.1",
+    "fastapi>=0.137.2",
     "httpx>=0.28.1",
     "open-gopro>=0.22.0",
     "uvicorn>=0.47.0",
