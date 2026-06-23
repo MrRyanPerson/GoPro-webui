@@ -147,19 +147,18 @@
 <dialog id="zoom_modal" class="modal">
     <div class="modal-box">
         <h1 class="text-lg sm:text-xl font-bold">Set zoom for Top Camera.</h1>
-        <p class="text-md sm:text-lg">Use to slider below to set the zoom level for the Top Camera.</p>
         <form class="m-4 pt-2">
             <div class="w-full max-w-xs">
-            <input type="range" min="0" max="100" value="0" class="range" step="50" id="zoom_slider" onchange={setZoom} />
+            <input type="range" min="0" max="100" value="0" class="range range-xl" step="50" id="zoom_slider" onchange={setZoom} />
             <div class="flex justify-between px-2.5 mt-2 text-xs">
                 <span>|</span>
                 <span>|</span>
                 <span>|</span>
             </div>
-            <div class="flex justify-between px-2.5 mt-2 text-xs">
-                <span>Original</span>
-                <span>Medium</span>
-                <span>High</span>
+            <div class="flex justify-between px-2.5 mt-2 text-xs sm:text-sm">
+                <span>1.0x</span>
+                <span>1.5x</span>
+                <span>2.0x</span>
             </div>
             </div>
         </form>
