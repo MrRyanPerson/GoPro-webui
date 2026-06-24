@@ -12,7 +12,7 @@ async def top_camera_zoom(CameraManager, zoom):
         top_gopro = CameraManager.top_gopro
 
         # Zoom is between 0 and 100 where 0 is minimum zoom and 100 is maximum
-        await top_gopro.http_command.set_digital_zoom(int(zoom))
+        await top_gopro.http_command.set_digital_zoom(percent=int(zoom))
 
         return {
             "status": 200
