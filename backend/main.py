@@ -10,6 +10,7 @@ from libs.preview import get_preview
 from libs.record import record
 from libs.record import stop_record
 from libs.extras import *
+from libs.zoom import top_camera_zoom
 from libs.camera_manager import CameraManager
 
 @asynccontextmanager
@@ -48,6 +49,11 @@ async def status():
 async def preview():
     return await get_preview(camera_manager)
 
+@app.get("/zoom/{percent}")
+async def zoom(percent: str):
+    return await top_camera_zoom(camera_manager, percent)
+
+    
 @app.get("/controls/{action}")
 async def controls(action: str):
     match action:
@@ -57,6 +63,17 @@ async def controls(action: str):
             return await set_keep_alive(camera_manager)
         case "get_presets":
             return await get_preset(camera_manager)
+        case "reset_connection":
+            try: 
+                camera_manager = await CameraManager.create()
+                return {
+                    "status": 200, 
+                }
+            except Exception as e:
+                return {
+                    "status": 500,
+                    "error": repr(e)
+                }
         case _:
             return {
                 "status": 500,

@@ -46,6 +46,21 @@ async def record(filename, CameraManager):
             "error": repr(e)
         }
 
+async def stop_camera(gopro, view, filename):
+    await send_stop_video(gopro)
+
+    await asyncio.sleep(1)    
+
+    video = await gopro.http_command.get_last_captured_media()
+    new_file_path = os.path.join(conf["LOCAL_FOLDER"], f"{get_file_prefix()}_{ {filename} }_{view}.MP4")
+    
+    video_path = video.data.folder + '/' + video.data.file
+    print(new_file_path)
+    print(video_path)
+
+    await gopro.http_command.download_file(camera_file=video_path, local_file=new_file_path)
+
+
 async def stop_record(filename, cameraSide, CameraManager):
     try:
         front_gopro = CameraManager.front_gopro
@@ -57,22 +72,12 @@ async def stop_record(filename, cameraSide, CameraManager):
         if os.path.isdir(conf["LOCAL_FOLDER"]) == False:
             os.mkdir(conf["LOCAL_FOLDER"])
 
-        for camera in cameras:
-            gopro = camera[0]
-            view = camera[1]
-            
-            await send_stop_video(gopro)
+        tasks = [
+            stop_camera(gopro, view, filename)
+            for gopro, view in cameras
+        ]
 
-            await asyncio.sleep(1)    
-
-            video = await gopro.http_command.get_last_captured_media()
-            new_file_path = os.path.join(conf["LOCAL_FOLDER"], f"{get_file_prefix()}_{ {filename} }_{view}.MP4")
-            
-            video_path = video.data.folder + '/' + video.data.file
-            print(new_file_path)
-            print(video_path)
-
-            await gopro.http_command.download_file(camera_file=video_path, local_file=new_file_path)
+        await asyncio.gather(*tasks)
 
 
         return {

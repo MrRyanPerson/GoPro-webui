@@ -7,7 +7,7 @@
     async function record() {
         try {
             if (document.getElementById("experiment_name")?.value !== "") {
-                
+
                 localStorage.setItem("camera_side", document.getElementById("camera_select")?.value)
                 camera_side = document.getElementById("camera_select")?.value
 

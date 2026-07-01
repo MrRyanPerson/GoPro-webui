@@ -1,9 +1,21 @@
 <script lang="ts">
 
     let presets = $state({});
+    let zoom = $state(0)
 
     function openConfirm(){
         (document.getElementById('confirm_modal') as HTMLDialogElement)?.showModal();
+    }
+    function openZoom(){
+        (document.getElementById('zoom_modal') as HTMLDialogElement)?.showModal();
+    }
+    async function setZoom(){
+        zoom = document.getElementById('zoom_slider')?.value
+        try {
+            await fetch('http://localhost:8000/zoom/' + zoom);
+        } catch (err) {
+            console.error('Failed to fetch status:', err);
+        }
     }
     async function openPresets() {
         presets = await getPresets();
@@ -23,6 +35,14 @@
             console.error('Failed to fetch status:', err);
         }
     }
+    async function resetConnection() {
+        try {
+            await fetch('http://localhost:8000/controls/reset_connection');
+        } catch (err) {
+            console.error('Failed to fetch status:', err);
+        }
+    }
+
     async function getPresets() {
         try {
             let response = await fetch('http://localhost:8000/controls/get_presets');
@@ -50,6 +70,13 @@
         <button class="btn btn-block" onclick={openPresets}>
             Get Presets
         </button>
+        <button class="btn btn-block" onclick={openZoom}>
+            Set Top Zoom
+        </button>
+        <button class="btn btn-block" onclick={resetConnection}>
+            Reset Connection
+        </button>
+
     </div>
 </div>
 
@@ -128,3 +155,30 @@
         </div>
     </div>
 </dialog>
+
+<dialog id="zoom_modal" class="modal">
+    <div class="modal-box">
+        <h1 class="text-lg sm:text-xl font-bold">Set zoom for Top Camera.</h1>
+        <form class="m-4 pt-2">
+            <div class="w-full max-w-xs">
+            <input type="range" min="0" max="100" value="0" class="range range-xl" step="50" id="zoom_slider" onchange={setZoom} />
+            <div class="flex justify-between px-2.5 mt-2 text-xs">
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+            </div>
+            <div class="flex justify-between px-2.5 mt-2 text-xs sm:text-sm">
+                <span>1.0x</span>
+                <span>1.5x</span>
+                <span>2.0x</span>
+            </div>
+            </div>
+        </form>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
