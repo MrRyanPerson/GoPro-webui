@@ -59,7 +59,7 @@
 </script>
 
 <div class="p-4 rounded-box shadow-sm bg-base-200">
-    <h1 class="text-2xl m-2 font-bold text-content">Extra Controls</h1>
+    <h1 class="text-2xl m-2 font-bold text-content">Controls</h1>
     <div class="grid gap-2 grid-cols-2 sm:grid-cols-3">
         <button class="btn btn-block" onclick={openConfirm}>
             Clear GoPro
@@ -138,8 +138,8 @@
 
 <dialog id="confirm_modal" class="modal">
     <div class="modal-box">
-        <h1 class="text-xl sm:text-2xl font-bold">Clear Gopros?</h1>
-        <p class="text-md sm:text-lg">Would you like to clear to GoPros?</p>
+        <h1 class="text-lg sm:text-xl font-bold">Clear Gopros?</h1>
+        <p class="text-sm sm:text-md">Would you like to clear the storage on the GoPros?</p>
         <div class="modal-action">
             <form onsubmit={
                 ()=>{
@@ -161,15 +161,21 @@
         <h1 class="text-lg sm:text-xl font-bold">Set zoom for Top Camera.</h1>
         <form class="m-4 pt-2">
             <div class="w-full max-w-xs">
-            <input type="range" min="0" max="100" value="0" class="range range-xl" step="50" id="zoom_slider" onchange={setZoom} />
+            <input type="range" min="0" max="100" value="0" class="range range-xl" step="20" id="zoom_slider" onchange={setZoom} />
             <div class="flex justify-between px-2.5 mt-2 text-xs">
                 <span>|</span>
                 <span>|</span>
                 <span>|</span>
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
             </div>
-            <div class="flex justify-between px-2.5 mt-2 text-xs sm:text-sm">
+            <div class="flex justify-between px-2.7 mt-2 text-xs sm:text-sm">
                 <span>1.0x</span>
-                <span>1.5x</span>
+                <span>1.2x</span>
+                <span>1.4x</span>
+                <span>1.6x</span>
+                <span>1.8x</span>
                 <span>2.0x</span>
             </div>
             </div>
