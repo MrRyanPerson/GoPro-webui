@@ -28,7 +28,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"@types/node": "^26",
-		"daisyui": "^5.7.22",
+		"daisyui": "^5.7.46",
 		"eslint": "^10.11.0",
 		"eslint-plugin-svelte": "^3.23.0",
 		"globals": "^17.12.0",
