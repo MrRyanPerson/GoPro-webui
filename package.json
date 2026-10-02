@@ -40,5 +40,9 @@
 	},
 	"dependencies": {
 		"pm2": "^7.0.4"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
 	}
 }
